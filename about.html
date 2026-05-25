@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZAD — About</title>
+  <link rel="icon" href="logo.png" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .z-about-wrap {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* LEFT — slideshow */
+    .z-about-left {
+      position: relative;
+      overflow: hidden;
+      min-height: 600px;
+    }
+
+    .z-slide {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .z-slide.z-slide-active {
+      opacity: 1;
+    }
+
+    /* RIGHT — content */
+    .z-about-right {
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 5rem 4rem;
+      gap: 2.5rem;
+      text-align: center;
+    }
+
+    .z-about-logo {
+      width: min(280px, 60%);
+      height: auto;
+    }
+
+    .z-about-rule {
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto;
+    }
+
+    .z-about-quote {
+      font-family: var(--f-serif);
+      font-size: clamp(1.1rem, 2vw, 1.45rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--cream);
+      line-height: 1.8;
+      max-width: 480px;
+    }
+
+    .z-about-quote::before {
+      content: '"';
+      font-size: 3rem;
+      color: var(--gold);
+      line-height: 0;
+      vertical-align: -0.6rem;
+      margin-right: 0.2rem;
+      font-style: normal;
+    }
+
+    .z-about-quote::after {
+      content: '"';
+      font-size: 3rem;
+      color: var(--gold);
+      line-height: 0;
+      vertical-align: -0.6rem;
+      margin-left: 0.2rem;
+      font-style: normal;
+    }
+
+    .z-about-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--f-body);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .z-about-back:hover { color: var(--gold2); }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .z-about-wrap {
+        grid-template-columns: 1fr;
+        grid-template-rows: 50vh auto;
+      }
+
+      .z-about-left { min-height: 50vh; }
+
+      .z-about-right {
+        padding: 3.5rem 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="z-app">
+
+  <!-- NAV -->
+  <nav class="z-nav">
+    <div class="z-nav-inner" id="navInner"></div>
+  </nav>
+
+  <div class="z-about-wrap">
+
+    <!-- LEFT: Slideshow -->
+    <div class="z-about-left" id="slideshow"></div>
+
+    <!-- RIGHT: Content -->
+    <div class="z-about-right">
+      <img src="logo.png" alt="ZAD" class="z-about-logo" />
+      <div class="z-about-rule"></div>
+      <p class="z-about-quote">More than just a café, this is a space created for slow mornings, deep conversations, and moments worth remembering. We serve specialty coffee made from carefully sourced beans, brewed by people who truly love coffee. Whether you're here to work, relax, or reconnect, we want every visit to feel like home.</p>
+      <div class="z-about-rule"></div>
+      <a href="index.html" class="z-about-back">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+          <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Back to Menu
+      </a>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="z-footer">
+    <img src="logo.png" alt="ZAD" class="z-footer-logo" />
+    <p class="z-footer-line">All prices in EGP · Subject to change</p>
+    <p class="z-footer-copy">© 2025 ZAD Speciality Coffee</p>
+  </footer>
+
+</div>
+<script>
+  const images = [
+    "images/web_img-002.jpg","images/web_img-003.jpg","images/web_img-004.jpg",
+    "images/web_img-005.jpg","images/web_img-006.jpg","images/web_img-007.jpg",
+    "images/web_img-008.jpg","images/web_img-009.jpg","images/web_img-010.jpg",
+    "images/web_img-011.jpg","images/web_img-012.jpg","images/web_img-013.jpg",
+    "images/web_img-014.jpg","images/web_img-015.jpg","images/web_img-016.jpg",
+    "images/web_img-017.jpg","images/web_img-018.jpg","images/web_img-019.jpg",
+    "images/web_img-020.jpg","images/web_img-021.jpg","images/web_img-022.jpg",
+    "images/web_img-023.jpg","images/web_img-024.jpg","images/web_img-025.jpg",
+    "images/web_img-026.jpg","images/web_img-027.jpg","images/web_img-028.jpg",
+    "images/web_img-029.jpg"
+  ];
+
+  const slideshow = document.getElementById("slideshow");
+
+  // Build slides
+  images.forEach((src, i) => {
+    const div = document.createElement("div");
+    div.className = "z-slide" + (i === 0 ? " z-slide-active" : "");
+    div.style.backgroundImage = `url('${src}')`;
+    slideshow.appendChild(div);
+  });
+
+  let current = 0;
+  const slides = document.querySelectorAll(".z-slide");
+
+  setInterval(() => {
+    slides[current].classList.remove("z-slide-active");
+    current = (current + 1) % slides.length;
+    slides[current].classList.add("z-slide-active");
+  }, 500);
+
+  // Nav
+  const CATEGORIES = [
+    { id: "Coffee", label: "Coffee" },
+    { id: "Matcha", label: "Matcha" },
+    { id: "NonCoffee", label: "Non-Coffee" },
+    { id: "Brewed", label: "Brewed" },
+    { id: "Dessert", label: "Dessert" },
+    { id: "Bakeries", label: "Bakeries" },
+    { id: "Signature", label: "Signature" },
+    { id: "Extras", label: "Extras" },
+  ];
+
+  const navInner = document.getElementById("navInner");
+
+  // About btn (active)
+  const aboutBtn = document.createElement("a");
+  aboutBtn.className = "z-nav-btn z-nav-on";
+  aboutBtn.textContent = "About";
+  aboutBtn.href = "about.html";
+  navInner.appendChild(aboutBtn);
+
+  CATEGORIES.forEach(c => {
+    const btn = document.createElement("a");
+    btn.className = "z-nav-btn";
+    btn.textContent = c.label;
+    btn.href = "index.html";
+    navInner.appendChild(btn);
+  });
+
+  // Sticky nav
+  const nav = document.querySelector(".z-nav");
+  window.addEventListener("scroll", () => {
+    nav.classList.toggle("z-nav-stuck", window.scrollY > 10);
+  }, { passive: true });
+</script>
+</body>
+</html>
